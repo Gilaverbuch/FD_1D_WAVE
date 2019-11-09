@@ -4,33 +4,68 @@
 #include <sstream> 
 
 
+
+// --------------------------------------------------------------------------------------------
 class model_parameters{
 public:
 	int l, nsteps, dx, elements, density, velocity;
 	double dt; 
-	model_parameters(int l_, int nstep_, int dx_, int elements_, int density_, int velocity_, double dt_);
+	model_parameters();	// Custom default constructor
+	void print_parameters();
 
 private:
-
+	double extractNumbersWords(std::string str); 
 
 };
 
-model_parameters::model_parameters(int l_, int nstep_, int dx_, int elements_, int density_, int velocity_, double dt_){
-	l = l_;
-	nsteps = nstep_;  
-	dx = dx_; 
-	elements = elements_; 
-	density = density_; 
-	velocity = velocity_;
-	dt = dt_;
+
+
+// public functions
+model_parameters::model_parameters(){
+
+	std::cout << "Cuctum default constructor" << std::endl;
+
+	std::ifstream inFile;
+	std::string line;
+	double data[6];
+	int i=0;
+
+
+	inFile.open("input.txt");
+	while(std::getline(inFile, line)) 
+	  {
+	  	data[i] = extractNumbersWords(line);
+	  	// print line
+	  	// std::cout << line << std::endl;
+	  	// std::cout << data[i] << std::endl;
+	  	i++;
+
+	  }
+
+	l = int(data[0]);
+	nsteps = int(data[1]);  
+	dx = int(data[2]); 
+	elements = int(data[0]/data[2]); 
+	density = int(data[3]); 
+	velocity = int(data[4]);
+	dt = data[5];
 }
 
 
+void model_parameters::print_parameters(){
 
-// --------------------------------------------------------------------------------------------
+	std::cout << "length" << " " << l << std::endl;
+	std::cout << "dx" << " " << dx << std::endl;
+	std::cout << "number of elements" << " " << elements << std::endl;
+	std::cout << "dt" << " " << dt << std::endl;
+	std::cout << "number of stepss" << " " << nsteps << std::endl;
+	std::cout << "density" << " " << density << std::endl;
+	std::cout << "velocity" << " " << velocity << std::endl;
 
-void extractIntegerWords(std::string str) 
-{ 
+}
+
+// private functions
+double model_parameters::extractNumbersWords(std::string str){ 
     std::stringstream ss;     
   
     /* Storing the whole string into string stream */
@@ -38,62 +73,51 @@ void extractIntegerWords(std::string str)
   
     /* Running loop till the end of the stream */
     std::string temp; 
-    double found; 
+    double found, val; 
     while (!ss.eof()) { 
   
-        /* extracting word by word from stream */
+        // extracting word by word from stream 
         ss >> temp; 
   
         /* Checking the given word is integer or not */
         if (std::stringstream(temp) >> found) 
-            std::cout << found << std::endl;
-  
+            // std::cout << found << std::endl;
+  			val=found;
         /* To save from space at the end of string */
         temp = ""; 
     } 
+   	return val;
 } 
 
-void read_input(){
-	std::ifstream inFile;
-	std::string line;
 
-	inFile.open("input.txt");
-	while(std::getline(inFile, line)) 
-	  {
-	  	extractIntegerWords(line);
-	    // std::cout << line << std::endl;
 
-	  }
 
-}
 // --------------------------------------------------------------------------------------------
 
 int main()
 {	
-	// --------------------------------------------------------------------------------------------
-	// define model parameters --> put in class with constructors 
 
-	int l_ = 10000; //length [m]
-	int nsteps_ = 2000; //number of timesteps
-	int dx_ = 20; //[m]
-	int elements_ = int(l_/dx_);
-	int density_ = 2800; //[kg/m^3]
-	int velocity_ = 3000; //[m/s]
-	double dt_ = 0.005; //[sec]
+	model_parameters model;
+	model.print_parameters();
 
-	// --------------------------------------------------------------------------------------------
+	// this is another way to print the model parameters
+	// std::cout << "length" << " " << model.l << std::endl;
+	// std::cout << "dx" << " " << model.dx << std::endl;
+	// std::cout << "number of elements" << " " << model.elements << std::endl;
+	// std::cout << "dt" << " " << model.dt << std::endl;
+	// std::cout << "number of stepss" << " " << model.nsteps << std::endl;
+	// std::cout << "density" << " " << model.density << std::endl;
+	// std::cout << "velocity" << " " << model.velocity << std::endl;
 
 
-	read_input();
+	// std::cout << "number of elements" << " " << elements_ << std::endl;
+	// int n=10;
+	// int a[n] = {};
 
-	model_parameters model(l_, nsteps_, dx_, elements_, density_, velocity_, dt_);;
-	std::cout << "model parameters" << " " << model.nsteps << std::endl;
-
-	std::cout << "number of elements" << " " << elements_ << std::endl;
-	int n=10;
-	int a[n] = {};
-
-	std::cout << a[0] << " " << a[5] << std::endl;
+	// std::cout << a[0] << " " << a[5] << std::endl;
 
 	return 0;
 }
+
+
+
