@@ -1,0 +1,7 @@
+l_ = 10000; //length [m]
+nsteps_ = 2000; //number of timesteps
+dx_ = 20; //[m]
+elements_ = int(l_/dx_);
+density_ = 2800; //[kg/m^3]
+velocity_ = 3000; //[m/s]
+dt_ = 0.005; //[sec]

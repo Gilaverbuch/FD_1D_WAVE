@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
+#include <sstream> 
+
 
 class model_parameters{
 public:
@@ -24,6 +27,47 @@ model_parameters::model_parameters(int l_, int nstep_, int dx_, int elements_, i
 
 
 
+// --------------------------------------------------------------------------------------------
+
+void extractIntegerWords(std::string str) 
+{ 
+    std::stringstream ss;     
+  
+    /* Storing the whole string into string stream */
+    ss << str; 
+  
+    /* Running loop till the end of the stream */
+    std::string temp; 
+    double found; 
+    while (!ss.eof()) { 
+  
+        /* extracting word by word from stream */
+        ss >> temp; 
+  
+        /* Checking the given word is integer or not */
+        if (std::stringstream(temp) >> found) 
+            std::cout << found << std::endl;
+  
+        /* To save from space at the end of string */
+        temp = ""; 
+    } 
+} 
+
+void read_input(){
+	std::ifstream inFile;
+	std::string line;
+
+	inFile.open("input.txt");
+	while(std::getline(inFile, line)) 
+	  {
+	  	extractIntegerWords(line);
+	    // std::cout << line << std::endl;
+
+	  }
+
+}
+// --------------------------------------------------------------------------------------------
+
 int main()
 {	
 	// --------------------------------------------------------------------------------------------
@@ -40,6 +84,7 @@ int main()
 	// --------------------------------------------------------------------------------------------
 
 
+	read_input();
 
 	model_parameters model(l_, nsteps_, dx_, elements_, density_, velocity_, dt_);;
 	std::cout << "model parameters" << " " << model.nsteps << std::endl;
