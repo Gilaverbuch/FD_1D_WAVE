@@ -7,6 +7,7 @@ public:
 	Field(int size);	// Custom default constructor
 	
 private:
+	void initialize(int size, double *A, double value);
 	
 
 };

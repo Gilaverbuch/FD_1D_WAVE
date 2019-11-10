@@ -14,8 +14,20 @@ Field::Field(int size){
 	lambda = new double [size];
 	rho = new double [size];
 	vel = new double [size];
-	epsilon = new double [size];
+	epsilon = new double [size]; 
 	RHS = new double [size];
 	sig = new double [size];
 	x = new double [size];
+
+	initialize(size, epsilon, 20.0);
+
+	std::cout << "epsilon val " << epsilon[10] << std::endl; 
+
+}
+
+void Field::initialize(int size, double *A, double value){
+
+	for (int i=0; i<size; i++){
+		A[i] = value;
+	}
 }
