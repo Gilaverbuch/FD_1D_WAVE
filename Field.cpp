@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
-#include <sstream> 
 #include "Field.h"
+
 
 Field::Field(int size){
 
