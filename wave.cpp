@@ -4,7 +4,7 @@
 #include <sstream> 
 
 
-
+// --------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------
 class model_parameters{
 public:
@@ -19,11 +19,10 @@ private:
 };
 
 
-
 // public functions
 model_parameters::model_parameters(){
 
-	std::cout << "Cuctum default constructor" << std::endl;
+	std::cout << "Cuctum default constructor. Reading parameters from input.txt" << std::endl;
 
 	std::ifstream inFile;
 	std::string line;
@@ -54,6 +53,8 @@ model_parameters::model_parameters(){
 
 void model_parameters::print_parameters(){
 
+	std::cout << "###############################" << std::endl;
+	std::cout << "THESE ARE THE MODEL PARAMETERS:" << std::endl;
 	std::cout << "length" << " " << l << std::endl;
 	std::cout << "dx" << " " << dx << std::endl;
 	std::cout << "number of elements" << " " << elements << std::endl;
@@ -61,6 +62,7 @@ void model_parameters::print_parameters(){
 	std::cout << "number of stepss" << " " << nsteps << std::endl;
 	std::cout << "density" << " " << density << std::endl;
 	std::cout << "velocity" << " " << velocity << std::endl;
+	std::cout << "###############################" << std::endl;
 
 }
 
@@ -91,6 +93,34 @@ double model_parameters::extractNumbersWords(std::string str){
 
 
 
+// --------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------
+class Field{
+public:
+	double *U, *U_past, *U_future, *lambda, *rho, *vel, *epsilon, *RHS, *sig, *x;
+	Field(int size);	// Custom default constructor
+	
+private:
+	
+
+};
+
+Field::Field(int size){
+
+	std::cout << "Cuctum default constructor. Initializing the field parameters" << std::endl;
+
+	U = new double [size];
+	U_past = new double [size];
+	U_future = new double [size]; 
+	lambda = new double [size];
+	rho = new double [size];
+	vel = new double [size];
+	epsilon = new double [size];
+	RHS = new double [size];
+	sig = new double [size];
+	x = new double [size];
+}
+
 
 // --------------------------------------------------------------------------------------------
 
@@ -99,6 +129,7 @@ int main()
 
 	model_parameters model;
 	model.print_parameters();
+	Field displacement(model.elements);
 
 	// this is another way to print the model parameters
 	// std::cout << "length" << " " << model.l << std::endl;
