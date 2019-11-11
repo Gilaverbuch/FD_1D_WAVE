@@ -4,7 +4,7 @@
 #include <sstream> 
 #include "model_parameters.h"
 #include "Field.h"
-
+#include <filesystem>
 
 // --------------------------------------------------------------------------------------------
 
@@ -15,7 +15,6 @@ int main()
 	model.print_parameters();
 	Field displacement(model);
 	displacement.Propagator();
-
 
 	// std::cout << "number of elements" << " " << elements_ << std::endl;
 	// int n=10;
