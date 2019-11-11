@@ -11,7 +11,7 @@ public:
 	
 private:
 	void initialize(int size, double *A, double value);
-	void print_to_file(int size, double *A, double *pos);
+	void print_to_file(int size, double *A, double *pos, int itteration);
 	
 
 };
