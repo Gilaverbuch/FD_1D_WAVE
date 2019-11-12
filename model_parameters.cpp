@@ -2,16 +2,20 @@
 #include <cmath>
 #include <fstream>
 #include <sstream> 
+#include <vector>
 #include "model_parameters.h"
 
-// public functions
+
+// ------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------------
+//public functions
 model_parameters::model_parameters(){
 
 	std::cout << "Cuctum default constructor. Reading parameters from input.txt" << std::endl;
 
 	std::ifstream inFile;
 	std::string line;
-	double data[6];
+	double data[3];
 	int i=0;
 
 
@@ -19,21 +23,20 @@ model_parameters::model_parameters(){
 	while(std::getline(inFile, line)) 
 	  {
 	  	data[i] = extractNumbersWords(line);
-	  	// print line
-	  	// std::cout << line << std::endl;
-	  	// std::cout << data[i] << std::endl;
 	  	i++;
 
 	  }
 
-	l = int(data[0]);
-	nsteps = int(data[1]);  
-	dx = int(data[2]); 
-	elements = int(data[0]/data[2]); 
-	density = int(data[3]); 
-	velocity = int(data[4]);
-	dt = data[5];
+	nsteps = int(data[0]);  
+	dx = int(data[1]); 
+	dt = data[2];
+
+	read_vel_profile();
+	l = x_range[layers-1];
+	elements = int (l/dx);
+	
 }
+// ------------------------------------------------------------------------------------------------------------------
 
 
 void model_parameters::print_parameters(){
@@ -45,13 +48,13 @@ void model_parameters::print_parameters(){
 	std::cout << "number of elements" << " " << elements << std::endl;
 	std::cout << "dt" << " " << dt << std::endl;
 	std::cout << "number of stepss" << " " << nsteps << std::endl;
-	std::cout << "density" << " " << density << std::endl;
-	std::cout << "velocity" << " " << velocity << std::endl;
 	std::cout << "###############################" << std::endl;
 
 }
 
-// private functions
+// ------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------------
+//private functions
 double model_parameters::extractNumbersWords(std::string str){ 
     std::stringstream ss;     
   
@@ -75,4 +78,44 @@ double model_parameters::extractNumbersWords(std::string str){
     } 
    	return val;
 } 
+// ------------------------------------------------------------------------------------------------------------------
+
+void model_parameters::read_vel_profile(){
+
+	std::ifstream inFile;
+
+	inFile.open("vel_profile.txt");
+
+	while(!inFile.eof())
+	{
+	    int  a, b, c;
+	    inFile >> a >> b >> c; // extracts 3 values for layer
+
+	    // std::cout << a << " " << b << " " << c << std::endl;
+
+	    x_range.push_back(a);
+		density_range.push_back(b);
+		velocity_range.push_back(c);
+	}
+	layers = x_range.size();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
