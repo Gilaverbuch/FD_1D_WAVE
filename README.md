@@ -9,6 +9,8 @@ Compile and run
 
 Easy plot with gnuplot:
 cd results/	
+
 gnuplot		
+
 do for [i=1:set_number] {plot  "wave_signal".i.".txt" with lines ; pause 0.1; set xrange[0:10000];set yrange[-1:1]};
 
