@@ -91,7 +91,6 @@ void model_parameters::read_vel_profile(){
 	    int  a, b, c;
 	    inFile >> a >> b >> c; // extracts 3 values for layer
 
-	    // std::cout << a << " " << b << " " << c << std::endl;
 
 	    x_range.push_back(a);
 		density_range.push_back(b);
