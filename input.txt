@@ -1,6 +1,3 @@
-l_ = 5000; //length [m]
-nsteps_ = 2000; //number of timesteps
+nsteps_ = 3000; //number of timesteps
 dx_ = 20; //[m]
-density_ = 2800; //[kg/m^3]
-velocity_ = 3000; //[m/s]
 dt_ = 0.005; //[sec]

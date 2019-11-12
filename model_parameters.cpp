@@ -15,7 +15,7 @@ model_parameters::model_parameters(){
 
 	std::ifstream inFile;
 	std::string line;
-	double data[6];
+	double data[3];
 	int i=0;
 
 
@@ -27,13 +27,9 @@ model_parameters::model_parameters(){
 
 	  }
 
-	l = int(data[0]);
-	nsteps = int(data[1]);  
-	dx = int(data[2]); 
-	elements = int(data[0]/data[2]); 
-	density = int(data[3]); 
-	velocity = int(data[4]);
-	dt = data[5];
+	nsteps = int(data[0]);  
+	dx = int(data[1]); 
+	dt = data[2];
 
 	read_vel_profile();
 	l = x_range[layers-1];
@@ -52,8 +48,6 @@ void model_parameters::print_parameters(){
 	std::cout << "number of elements" << " " << elements << std::endl;
 	std::cout << "dt" << " " << dt << std::endl;
 	std::cout << "number of stepss" << " " << nsteps << std::endl;
-	std::cout << "density" << " " << density << std::endl;
-	std::cout << "velocity" << " " << velocity << std::endl;
 	std::cout << "###############################" << std::endl;
 
 }
@@ -102,7 +96,6 @@ void model_parameters::read_vel_profile(){
 	    x_range.push_back(a);
 		density_range.push_back(b);
 		velocity_range.push_back(c);
-		layers++;
 	}
 	layers = x_range.size();
 }

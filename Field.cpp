@@ -40,7 +40,7 @@ void Field::Propagator(){
 	double a=5.5e-6;
 	int i, j, itteration;
 	int x0= 2000;
-	int print_every = 20;
+	int print_every = 50;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
 

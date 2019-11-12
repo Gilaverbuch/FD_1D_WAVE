@@ -3,8 +3,8 @@
 
 class model_parameters{
 public:
-	int l, nsteps, dx, elements, density, velocity;
-	double dt, layers; 
+	int l, nsteps, dx, elements, layers;
+	double dt; 
 	std::vector<int>  x_range, density_range, velocity_range; //dynamic vectors to read velocity profile
 
 	model_parameters();	// Custom default constructor
