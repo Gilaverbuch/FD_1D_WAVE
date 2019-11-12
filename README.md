@@ -15,5 +15,5 @@ Easy plotting with gnuplot. Type the following commends in the terminal:
 
 -gnuplot		
 
--do for [i=1:set_number] {plot  "wave_signal".i.".txt" with lines ; pause 0.1; set xrange[0:10000];set yrange[-1:1]};
+-do for [i=1:set_number] {plot  "wave_signal".i.".txt" with lines ; pause 0.1; set xrange[0:x_max];set yrange[-1:1]};
 
