@@ -26,13 +26,19 @@ Field::Field(model_parameters & M){
 	dx = M.dx;
 	steps = M.nsteps; 
 	elements = M.elements;
+
+	// calculating lambda
+	for (int i=0; i<elements; i++){
+		lambda[i] = rho[i] * pow(vel[i],2);
+	}
 }
 // ------------------------------------------------------------------------------------------------------------------
 
 void Field::Propagator(){
 	double a=5.5e-6;
-	int i, itteration;
+	int i, j, itteration;
 	int x0= 2000;
+	int print_every = 20;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
 
@@ -48,33 +54,35 @@ void Field::Propagator(){
 
 	// propagator
 
-
-	// for i in range(0,nsteps):
-	// for j in range(0,elements-1):
-	// 	epsilon[j]=(U[j+1]-U[j])/dx
-	// 	sig[j]=lam[j]*epsilon[j]
-
-	// for j in range(1,elements-1):	
-	// 	RHS[j]=(sig[j]-sig[j-1])/dx
-
-	// Ufuture[:]=(RHS[:]/rho[:])*dt**2+2*U[:]-Upast[:]
-	// Ufuture[0]=0
-	// Ufuture[elements-1]=0
-
-	// #################################################
-	// #printing figures
-	// #change temp value in order to change the number of printed figures
-	// temp=10
-	// if i%temp==0:
-	// 	p_num=i/temp
-	// 	plt.figure()
-	// 	plt.plot(x,Ufuture[:]); plt.title("1D wave"); plt.xlabel('Distance [m]') 
-	// 	exec "plt.savefig('1D-wave%d.png')" %(p_num)
-	// #################################################
+	for (i=0; i<steps; i++){
+		for (j=0; j<(elements-1); j++){
+			epsilon[j] = (U[j+1] - U[j])/dx;
+			sig[j] = lambda[j] * epsilon[j];
+		}
 
 
-	// Upast[:]=U[:]
-	// U[:]=Ufuture[:]
+		U_future[0] = 0;
+		U_future[elements-1] = 0;
+		for (j=1; j<(elements-1); j++){
+
+			RHS[j] = (sig[j] - sig[j-1])/dx;
+			U_future[j] = (RHS[j]/rho[j])*dt*dt + 2*U[j] - U_past[j];
+		}
+
+		if (i%print_every==0){
+			itteration = i/print_every;
+
+			print_to_file(elements, U_future, x, itteration);
+		}
+
+
+		for (j=0; j<elements; j++){
+			U_past[j] = U[j];
+			U[j] = U_future[j];
+		}
+
+	}
+
 
 
 	system("mv wave_signal*.txt results/");	
