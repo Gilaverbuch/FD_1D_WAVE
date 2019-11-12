@@ -1,18 +1,19 @@
 # FD_1D_WAVE
-1D finite difference wave
+1D finite difference wave propagation. 
 
-Explain about the makefile
+To compile the program run "make" in the terminal. It uses GNU g++ compiler. 
+"./wave" will run the program. Results are saved to the results directory. 
 
-Explain about the input parameters
+The modeling parameters (nsteps_:number of time steps, dx_ , dt_ ) are specified in "input.txt" in this order.
 
-velocity profile contains three arguments in the following order: distance[m]	density[kg/m^3]		velocity [m/s]	 
+velocity profile, "vel_profile.txt", contains three arguments in the following order: distance[m]	density[kg/m^3]		velocity [m/s].	 
+ 
 
-Compile and run 
+Easy plotting with gnuplot. Type the following commends in the terminal:
 
-Easy plot with gnuplot:
-cd results/	
+-cd results/	
 
-gnuplot		
+-gnuplot		
 
-do for [i=1:set_number] {plot  "wave_signal".i.".txt" with lines ; pause 0.1; set xrange[0:10000];set yrange[-1:1]};
+-do for [i=1:set_number] {plot  "wave_signal".i.".txt" with lines ; pause 0.1; set xrange[0:10000];set yrange[-1:1]};
 
