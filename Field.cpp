@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <vector>
 #include "Field.h"
 #include "model_parameters.h"
 #include <filesystem>
@@ -10,22 +11,23 @@
 //public functions
 Field::Field(model_parameters & M){
 
-	std::cout << "Cuctum default constructor. Initializing the field parameters" << std::endl;
+	std::cout << "Cuctum default constructor. Initializing modeling parameters and velocity profile" << std::endl;
 
-	U = new double [M.elements];
-	U_past = new double [M.elements];
-	U_future = new double [M.elements]; 
-	lambda = new double [M.elements];
-	rho = new double [M.elements];	initialize(M.elements, rho, M.density);
-	vel = new double [M.elements];	initialize(M.elements, vel, M.velocity);
-	epsilon = new double [M.elements]; 
-	RHS = new double [M.elements];
-	sig = new double [M.elements];
-	x = new double [M.elements];
 	dt = M.dt;
 	dx = M.dx;
 	steps = M.nsteps; 
 	elements = M.elements;
+	U = new double [M.elements];
+	U_past = new double [M.elements];
+	U_future = new double [M.elements]; 
+	lambda = new double [M.elements];
+	rho = new double [M.elements];	initialize(M.elements, rho, M.x_range, M.density_range);
+	vel = new double [M.elements];	initialize(M.elements, vel, M.x_range, M.velocity_range);
+	epsilon = new double [M.elements]; 
+	RHS = new double [M.elements];
+	sig = new double [M.elements];
+	x = new double [M.elements];
+	
 
 	// calculating lambda
 	for (int i=0; i<elements; i++){
@@ -90,17 +92,22 @@ void Field::Propagator(){
 
 
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------------------------
 //private functions
-void Field::initialize(int size, double *A, double value){
+void Field::initialize(int size, double *A, std::vector<int>  x_range, std::vector<int> val){
 
-	for (int i=0; i<size; i++){
-		A[i] = value;
+	int pos, pos1, pos2;
+	pos1 = 0;
+	for (int i=0; i<x_range.size(); i++){
+
+		pos2 = int(x_range[i]/dx);
+
+		for (pos=pos1; pos<pos2; pos++){
+
+			A[pos] = val[i];
+		}
+		pos1 = pos2;
 	}
 }
 // ------------------------------------------------------------------------------------------------------------------

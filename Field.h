@@ -1,5 +1,6 @@
 #pragma once
 #include "model_parameters.h"
+#include <vector>
 
 class Field{
 public:
@@ -10,7 +11,7 @@ public:
 	void Propagator(); //wave propagation
 	
 private:
-	void initialize(int size, double *A, double value);
+	void initialize(int size, double *A, std::vector<int>  x_range, std::vector<int> val);
 	void print_to_file(int size, double *A, double *pos, int itteration);
 	
 

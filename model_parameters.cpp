@@ -23,9 +23,6 @@ model_parameters::model_parameters(){
 	while(std::getline(inFile, line)) 
 	  {
 	  	data[i] = extractNumbersWords(line);
-	  	// print line
-	  	// std::cout << line << std::endl;
-	  	// std::cout << data[i] << std::endl;
 	  	i++;
 
 	  }
@@ -39,6 +36,9 @@ model_parameters::model_parameters(){
 	dt = data[5];
 
 	read_vel_profile();
+	l = x_range[layers-1];
+	elements = int (l/dx);
+	
 }
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -92,21 +92,19 @@ void model_parameters::read_vel_profile(){
 
 	inFile.open("vel_profile.txt");
 
-	layers = 0;
 	while(!inFile.eof())
 	{
 	    int  a, b, c;
 	    inFile >> a >> b >> c; // extracts 3 values for layer
 
-	    std::cout << a << " " << b << " " << c << std::endl;
+	    // std::cout << a << " " << b << " " << c << std::endl;
 
 	    x_range.push_back(a);
 		density_range.push_back(b);
 		velocity_range.push_back(c);
 		layers++;
 	}
-	std::cout << x_range.size() << std::endl;
-	std::cout << layers << std::endl;
+	layers = x_range.size();
 }
 
 
