@@ -5,6 +5,8 @@ Explain about the makefile
 
 Explain about the input parameters
 
+velocity profile contains three arguments in the following order: distance[m]	density[kg/m^3]		velocity [m/s]	 
+
 Compile and run 
 
 Easy plot with gnuplot:

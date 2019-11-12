@@ -2,9 +2,13 @@
 #include <cmath>
 #include <fstream>
 #include <sstream> 
+#include <vector>
 #include "model_parameters.h"
 
-// public functions
+
+// ------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------------
+//public functions
 model_parameters::model_parameters(){
 
 	std::cout << "Cuctum default constructor. Reading parameters from input.txt" << std::endl;
@@ -33,7 +37,10 @@ model_parameters::model_parameters(){
 	density = int(data[3]); 
 	velocity = int(data[4]);
 	dt = data[5];
+
+	read_vel_profile();
 }
+// ------------------------------------------------------------------------------------------------------------------
 
 
 void model_parameters::print_parameters(){
@@ -51,7 +58,9 @@ void model_parameters::print_parameters(){
 
 }
 
-// private functions
+// ------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------------
+//private functions
 double model_parameters::extractNumbersWords(std::string str){ 
     std::stringstream ss;     
   
@@ -75,4 +84,47 @@ double model_parameters::extractNumbersWords(std::string str){
     } 
    	return val;
 } 
+// ------------------------------------------------------------------------------------------------------------------
+
+void model_parameters::read_vel_profile(){
+
+	std::ifstream inFile;
+
+	inFile.open("vel_profile.txt");
+
+	layers = 0;
+	while(!inFile.eof())
+	{
+	    int  a, b, c;
+	    inFile >> a >> b >> c; // extracts 3 values for layer
+
+	    std::cout << a << " " << b << " " << c << std::endl;
+
+	    x_range.push_back(a);
+		density_range.push_back(b);
+		velocity_range.push_back(c);
+		layers++;
+	}
+	std::cout << x_range.size() << std::endl;
+	std::cout << layers << std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
