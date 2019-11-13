@@ -15,7 +15,7 @@ model_parameters::model_parameters(){
 
 	std::ifstream inFile;
 	std::string line;
-	double data[3];
+	double data[4];
 	int i=0;
 
 
@@ -30,6 +30,7 @@ model_parameters::model_parameters(){
 	nsteps = int(data[0]);  
 	dx = int(data[1]); 
 	dt = data[2];
+	x_s = data[3];
 
 	read_vel_profile();
 	l = x_range[layers-1];
