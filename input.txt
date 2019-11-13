@@ -1,4 +1,5 @@
 nsteps_ = 3000; //number of timesteps
 dx_ = 20; //[m]
 dt_ = 0.005; //[sec]
-x_s_ = 5000; //[m]
+x_s_ = 10000; //[m]
+print_int_ = 100; // print every number of timesteps

@@ -18,6 +18,7 @@ Field::Field(model_parameters & M){
 	steps = M.nsteps; 
 	elements = M.elements;
 	x_source = M.x_s;
+	print_every = M.print_int;
 	U = new double [M.elements];
 	U_past = new double [M.elements];
 	U_future = new double [M.elements]; 
@@ -40,7 +41,6 @@ Field::Field(model_parameters & M){
 void Field::Propagator(){
 	double a=5.5e-6;
 	int i, j, itteration;
-	int print_every = 50;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
 

@@ -15,7 +15,7 @@ model_parameters::model_parameters(){
 
 	std::ifstream inFile;
 	std::string line;
-	double data[4];
+	double data[5];
 	int i=0;
 
 
@@ -31,6 +31,7 @@ model_parameters::model_parameters(){
 	dx = int(data[1]); 
 	dt = data[2];
 	x_s = data[3];
+	print_int = data[4];
 
 	read_vel_profile();
 	l = x_range[layers-1];
@@ -46,9 +47,11 @@ void model_parameters::print_parameters(){
 	std::cout << "THESE ARE THE MODEL PARAMETERS:" << std::endl;
 	std::cout << "length" << " " << l << std::endl;
 	std::cout << "dx" << " " << dx << std::endl;
+	std::cout << "source position" << " " << x_s << std::endl;
 	std::cout << "number of elements" << " " << elements << std::endl;
 	std::cout << "dt" << " " << dt << std::endl;
-	std::cout << "number of stepss" << " " << nsteps << std::endl;
+	std::cout << "number of time steps" << " " << nsteps << std::endl;
+	std::cout << "printing interval" << " " << print_int << std::endl;
 	std::cout << "###############################" << std::endl;
 
 }

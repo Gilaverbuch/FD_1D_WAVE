@@ -3,7 +3,7 @@
 
 class model_parameters{
 public:
-	int l, nsteps, dx, elements, layers, x_s;
+	int l, nsteps, dx, elements, layers, x_s, print_int;
 	double dt; 
 	std::vector<int>  x_range, density_range, velocity_range; //dynamic vectors to read velocity profile
 
