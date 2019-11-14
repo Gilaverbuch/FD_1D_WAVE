@@ -42,7 +42,7 @@ Field::Field(model_parameters & M){
 
 void Field::Propagator(){
 	
-	double source;
+	double source, A, B;
 	int i, j, itteration, pos;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
@@ -66,14 +66,16 @@ void Field::Propagator(){
 
 		for (j=1; j<(elements-1); j++){
 
+			A = (U[j+2] - U[j])/(2 * dx);
+			B = (U[j] - U[j-2])/(2 * dx);
 			if (j==pos){
-				RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx) + source * 1e-3;
+				RHS[j] = ((1/rho[j+1])*A - (1/rho[j-1])*B)/(2 * dx) + source * 1e-3;
 			}
 			else{
 				RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx);
 			}
 			
-			U_future[j] = pow(vel[j],2) * pow(dt,2) * RHS[j] + 2*U[j] - U_past[j];
+			U_future[j] = rho[j] * pow(vel[j],2) * pow(dt,2) * RHS[j] + 2*U[j] - U_past[j];
 		}
 
 		U_future[0] = 0;
