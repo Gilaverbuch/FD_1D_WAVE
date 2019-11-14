@@ -5,7 +5,7 @@
 class Field{
 public:
 	double *U, *U_past, *U_future, *lambda, *rho, *vel, *epsilon, *RHS, *sig, *x;
-	double dt;
+	double dt, frequency, source_time_delay;
 	int dx, steps, elements, x_source, print_every;
 	Field(model_parameters&);	// Custom default constructor
 	void Propagator(); //wave propagation

@@ -15,7 +15,7 @@ model_parameters::model_parameters(){
 
 	std::ifstream inFile;
 	std::string line;
-	double data[5];
+	double data[7];
 	int i=0;
 
 
@@ -30,8 +30,10 @@ model_parameters::model_parameters(){
 	nsteps = int(data[0]);  
 	dx = int(data[1]); 
 	dt = data[2];
-	x_s = data[3];
-	print_int = data[4];
+	frequency = data[3];
+	source_time_delay = data[4];
+	x_s = data[5];
+	print_int = data[6];
 
 	read_vel_profile();
 	l = x_range[layers-1];

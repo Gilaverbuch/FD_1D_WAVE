@@ -15,6 +15,8 @@ Field::Field(model_parameters & M){
 
 	dt = M.dt;
 	dx = M.dx;
+	frequency = M.frequency;
+	source_time_delay = M.source_time_delay;
 	steps = M.nsteps; 
 	elements = M.elements;
 	x_source = M.x_s;
@@ -40,7 +42,7 @@ Field::Field(model_parameters & M){
 // ------------------------------------------------------------------------------------------------------------------
 
 void Field::Propagator(){
-	double a=5.5e-6;
+	
 	double freq=2;
 	double t_delay=2;
 	double source;
@@ -49,7 +51,7 @@ void Field::Propagator(){
 	system("rm results/*.txt");
 
 	// initial conditions
-
+	// double a=5.5e-6;
 	// for (i=0; i<elements; i++){
 	// 	U[i] = exp(-a * pow((x[i] - x_source), 2));
 	// 	U_past[i] = exp(-a * pow((x[i] - (x_source - vel[i]*dt)), 2));
@@ -64,7 +66,7 @@ void Field::Propagator(){
 
 	for (i=0; i<steps; i++){
 		// source  =   0.0001*((2*M_PI*freq) / sqrt(2 * M_PI)) * exp(-0.5 * (pow(freq,2)) * pow((i*dt - t_delay),2));
-		source  = -2 * (i*dt - t_delay) * pow(freq, 2) * exp(-1 * pow(freq, 2) * pow((i*dt - t_delay), 2));
+		source  = -2 * (i*dt - source_time_delay) * pow(frequency, 2) * exp(-1 * pow(frequency, 2) * pow((i*dt - source_time_delay), 2));
 		 // -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) ** 2))
 
 		for (j=1; j<(elements-1); j++){

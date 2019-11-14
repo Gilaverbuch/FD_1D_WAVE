@@ -1,5 +1,7 @@
 nsteps_ = 5000; //number of timesteps
 dx_ = 10; //[m]
 dt_ = 0.005; //[sec]
+frequency_ = 5 //[Hz]
+s_time_delay_ = 2 // [sec]
 x_s_ = 5000; //[m]
 print_int_ = 50; // print every number of timesteps
