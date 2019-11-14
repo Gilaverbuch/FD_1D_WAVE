@@ -34,22 +34,27 @@ Field::Field(model_parameters & M){
 	// calculating lambda
 	for (int i=0; i<elements; i++){
 		lambda[i] = rho[i] * pow(vel[i],2);
+		x[i] = (i-1) * dx;
 	}
 }
 // ------------------------------------------------------------------------------------------------------------------
 
 void Field::Propagator(){
 	double a=5.5e-6;
-	int i, j, itteration;
+	double freq=5;
+	double t_delay=5;
+	double source;
+	int i, j, itteration, pos;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
 
 	// initial conditions
 	for (i=0; i<elements; i++){
-		x[i] = (i-1) * dx;
 		U[i] = exp(-a * pow((x[i] - x_source), 2));
 		U_past[i] = exp(-a * pow((x[i] - (x_source - vel[i]*dt)), 2));
 	}
+
+	pos = int(x_source/dx);
 	itteration = 0;
 	print_to_file(elements, U, x, itteration);
 
@@ -57,19 +62,20 @@ void Field::Propagator(){
 	// propagator
 
 	for (i=0; i<steps; i++){
-		for (j=0; j<(elements-1); j++){
-			epsilon[j] = (U[j+1] - U[j])/dx;
-			sig[j] = lambda[j] * epsilon[j];
-		}
+		// source  =   0.001*((2*M_PI*freq) / sqrt(2 * M_PI)) * exp(-0.5 * (pow(freq,2)) * pow((i*dt - t_delay),2));
+		source = 0;
 
+		for (j=1; j<(elements-1); j++){
+
+			RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx) + source;
+
+			U_future[j] = pow(vel[j],2) * pow(dt,2) * RHS[j] + 2*U[j] - U_past[j];
+		}
 
 		U_future[0] = 0;
 		U_future[elements-1] = 0;
-		for (j=1; j<(elements-1); j++){
 
-			RHS[j] = (sig[j] - sig[j-1])/dx;
-			U_future[j] = (RHS[j]/rho[j])*dt*dt + 2*U[j] - U_past[j];
-		}
+
 
 		if (i%print_every==0){
 			itteration = i/print_every;
@@ -81,6 +87,7 @@ void Field::Propagator(){
 		for (j=0; j<elements; j++){
 			U_past[j] = U[j];
 			U[j] = U_future[j];
+			U_future[j] = 0;
 		}
 
 	}
@@ -99,7 +106,7 @@ void Field::initialize(int size, double *A, std::vector<int>  x_range, std::vect
 
 	int pos, pos1, pos2;
 	pos1 = 0;
-	for (int i=0; i<x_range.size(); i++){
+	for (int i=0; i<int(x_range.size()); i++){
 
 		pos2 = int(x_range[i]/dx);
 
