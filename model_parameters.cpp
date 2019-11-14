@@ -23,8 +23,8 @@ model_parameters::model_parameters(){
 	while(std::getline(inFile, line)) 
 	  {
 	  	data[i] = extractNumbersWords(line);
-	  	i++;
-
+	  	i = i + 1;
+	  	// std::cout << extractNumbersWords(line) << " " << data[i] << std::endl;
 	  }
 
 	nsteps = int(data[0]);  
@@ -52,6 +52,8 @@ void model_parameters::print_parameters(){
 	std::cout << "source position" << " " << x_s << std::endl;
 	std::cout << "number of elements" << " " << elements << std::endl;
 	std::cout << "dt" << " " << dt << std::endl;
+	std::cout << "frequency" << " " << frequency << std::endl;
+	std::cout << "source_time_delay" << " " << source_time_delay << std::endl;
 	std::cout << "number of time steps" << " " << nsteps << std::endl;
 	std::cout << "printing interval" << " " << print_int << std::endl;
 	std::cout << "###############################" << std::endl;
@@ -94,7 +96,8 @@ void model_parameters::read_vel_profile(){
 
 	while(!inFile.eof())
 	{
-	    int  a, b, c;
+	    int  a;
+	    double b, c;
 	    inFile >> a >> b >> c; // extracts 3 values for layer
 
 
