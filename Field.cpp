@@ -41,18 +41,19 @@ Field::Field(model_parameters & M){
 
 void Field::Propagator(){
 	double a=5.5e-6;
-	double freq=5;
-	double t_delay=5;
+	double freq=2;
+	double t_delay=2;
 	double source;
 	int i, j, itteration, pos;
 	std::cout << "wave propagation!!!" << std::endl;
 	system("rm results/*.txt");
 
 	// initial conditions
-	for (i=0; i<elements; i++){
-		U[i] = exp(-a * pow((x[i] - x_source), 2));
-		U_past[i] = exp(-a * pow((x[i] - (x_source - vel[i]*dt)), 2));
-	}
+
+	// for (i=0; i<elements; i++){
+	// 	U[i] = exp(-a * pow((x[i] - x_source), 2));
+	// 	U_past[i] = exp(-a * pow((x[i] - (x_source - vel[i]*dt)), 2));
+	// }
 
 	pos = int(x_source/dx);
 	itteration = 0;
@@ -62,12 +63,19 @@ void Field::Propagator(){
 	// propagator
 
 	for (i=0; i<steps; i++){
-		// source  =   0.001*((2*M_PI*freq) / sqrt(2 * M_PI)) * exp(-0.5 * (pow(freq,2)) * pow((i*dt - t_delay),2));
-		source = 0;
+		// source  =   0.0001*((2*M_PI*freq) / sqrt(2 * M_PI)) * exp(-0.5 * (pow(freq,2)) * pow((i*dt - t_delay),2));
+		source  = -2 * (i*dt - t_delay) * pow(freq, 2) * exp(-1 * pow(freq, 2) * pow((i*dt - t_delay), 2));
+		 // -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) ** 2))
 
 		for (j=1; j<(elements-1); j++){
 
-			RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx) + source;
+			if (j==pos){
+				RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx) + source * 1e-3;
+			}
+			else{
+				RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx);
+			}
+			
 
 			U_future[j] = pow(vel[j],2) * pow(dt,2) * RHS[j] + 2*U[j] - U_past[j];
 		}
