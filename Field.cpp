@@ -62,17 +62,17 @@ void Field::Propagator(){
 	// propagator
 
 	for (i=0; i<steps; i++){
-		source  = -2 * (i*dt - source_time_delay) * pow(frequency, 2) * exp(-1 * pow(frequency, 2) * pow((i*dt - source_time_delay), 2));
+		source = -2 * (i*dt - source_time_delay) * pow(frequency, 2) * exp(-1 * pow(frequency, 2) * pow((i*dt - source_time_delay), 2));
 
 		for (j=1; j<(elements-1); j++){
 
-			A = (U[j+2] - U[j])/(2 * dx);
-			B = (U[j] - U[j-2])/(2 * dx);
+			A = (U[j+1] - U[j])/( dx);
+			B = (U[j] - U[j-1])/( dx);
 			if (j==pos){
-				RHS[j] = ((1/rho[j+1])*A - (1/rho[j-1])*B)/(2 * dx) + source * 1e-3;
+				RHS[j] = ((1/rho[j])*A - (1/rho[j-1])*B)/( dx)  + source * 1e-3;
 			}
 			else{
-				RHS[j] = (U[j+1] - 2*U[j] + U[j-1])/(dx*dx);
+				RHS[j] = ((1/rho[j])*A - (1/rho[j-1])*B)/(dx);
 			}
 			
 			U_future[j] = rho[j] * pow(vel[j],2) * pow(dt,2) * RHS[j] + 2*U[j] - U_past[j];
