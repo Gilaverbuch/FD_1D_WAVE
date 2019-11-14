@@ -1,6 +1,6 @@
-nsteps_ = 5000		; //number of timesteps
-dx_ = 10			; //[m]
-dt_ = 0.005			; //[sec]
+time = 20			; //[sec]
+dx_ = 20			; //[m]
+stability = 0.8		; //[]
 frequency_ = 5		; //[Hz]
 s_time_delay_ = 2	; // [sec]
 x_s_ = 5000			; //[m]

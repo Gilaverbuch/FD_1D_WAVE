@@ -15,8 +15,9 @@ model_parameters::model_parameters(){
 
 	std::ifstream inFile;
 	std::string line;
-	double data[7];
+	double data[7], v_max;
 	int i=0;
+
 
 
 	inFile.open("input.txt");
@@ -27,9 +28,9 @@ model_parameters::model_parameters(){
 	  	// std::cout << extractNumbersWords(line) << " " << data[i] << std::endl;
 	  }
 
-	nsteps = int(data[0]);  
+	time = int(data[0]);  
 	dx = int(data[1]); 
-	dt = data[2];
+	stability = data[2];
 	frequency = data[3];
 	source_time_delay = data[4];
 	x_s = data[5];
@@ -38,6 +39,17 @@ model_parameters::model_parameters(){
 	read_vel_profile();
 	l = x_range[layers-1];
 	elements = int (l/dx);
+
+	v_max = 0;
+	for (i=0; i<layers; i++){
+		if (velocity_range[i] > v_max){
+			v_max = velocity_range[i];
+		}
+	}
+
+	dt = (stability * dx)/v_max;
+	nsteps = time/dt; 
+
 	
 }
 // ------------------------------------------------------------------------------------------------------------------

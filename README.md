@@ -4,7 +4,7 @@
 To compile the program run "make" in the terminal. It uses GNU g++ compiler. 
 "./wave" will run the program. Results are saved to the results directory. 
 
-The modeling parameters (nsteps_:number of time steps, dx_ , dt_, frequency_, s_time_delay_ ,  x_source, print_interval ) are specified in "input.txt" in this order.
+The modeling parameters (time, dx_ , stability, frequency_, s_time_delay_ ,  x_source, print_interval ) are specified in "input.txt" in this order.
 
 velocity profile, "vel_profile.txt", contains three arguments in the following order: distance[m]	density[kg/m^3]		velocity [m/s].	 
  
