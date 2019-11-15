@@ -58,7 +58,7 @@ model_parameters::model_parameters(){
 void model_parameters::print_parameters(){
 
 	std::cout << "###############################" << std::endl;
-	std::cout << "THESE ARE THE MODEL PARAMETERS:" << std::endl;
+	std::cout << "MODEL PARAMETERS:" << std::endl;
 	std::cout << "length" << " " << l << " " << "m" << std::endl;
 	std::cout << "dx" << " " << dx << " " << "m" << std::endl;
 	std::cout << "source position" << " " << x_s << " " << "m" << std::endl;
