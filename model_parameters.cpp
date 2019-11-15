@@ -59,13 +59,13 @@ void model_parameters::print_parameters(){
 
 	std::cout << "###############################" << std::endl;
 	std::cout << "THESE ARE THE MODEL PARAMETERS:" << std::endl;
-	std::cout << "length" << " " << l << std::endl;
-	std::cout << "dx" << " " << dx << std::endl;
-	std::cout << "source position" << " " << x_s << std::endl;
+	std::cout << "length" << " " << l << " " << "m" << std::endl;
+	std::cout << "dx" << " " << dx << " " << "m" << std::endl;
+	std::cout << "source position" << " " << x_s << " " << "m" << std::endl;
 	std::cout << "number of elements" << " " << elements << std::endl;
-	std::cout << "dt" << " " << dt << std::endl;
-	std::cout << "frequency" << " " << frequency << std::endl;
-	std::cout << "source_time_delay" << " " << source_time_delay << std::endl;
+	std::cout << "dt" << " " << dt << " " << "sec" << std::endl;
+	std::cout << "frequency" << " " << frequency << " " << "Hz" << std::endl;
+	std::cout << "source_time_delay" << " " << source_time_delay << " " << "sec" << std::endl;
 	std::cout << "number of time steps" << " " << nsteps << std::endl;
 	std::cout << "printing interval" << " " << print_int << std::endl;
 	std::cout << "###############################" << std::endl;
