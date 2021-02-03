@@ -1,5 +1,5 @@
 # FD_1D_WAVE
-1D finite difference wave propagation.. 
+1D finite difference wave propagation. 
 
 To compile the program run "make" in the terminal. It uses GNU g++ compiler. 
 "./wave" will run the program. Results are saved to the results directory. 
